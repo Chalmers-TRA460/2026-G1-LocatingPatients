@@ -155,6 +155,8 @@ However, some preparations aren’t performed at Linda’s ward and they need to
 
 ### 2.1 User(s)
 
+![Map representing how the personas interact with each other and where they are based](./Persona.png)
+
 <!--
    REQUIRED FOR v1.0
 
