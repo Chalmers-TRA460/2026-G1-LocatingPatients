@@ -14,7 +14,7 @@
 
 | Field               | Value                                      |
 |---------------------|--------------------------------------------|
-| **Group**           | TRA460_Group_X                             |
+| **Group**           | TRA460_Group_1                            |
 | **Version**         | 1.0                                        |
 | **Date**            | 2026-04-14                                |
 | **Clinical Mentor** | Linda Wahlström Andersson, Ward Chief, Sahlgrenska                 |
