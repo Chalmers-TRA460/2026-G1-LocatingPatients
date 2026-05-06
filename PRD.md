@@ -1,4 +1,4 @@
-# [Project Name] [Required]
+# [Locating Patients]
 ## Product Requirements Document
 
 > **TRA460: Digital Health Implementation** | Chalmers University of Technology
@@ -39,9 +39,7 @@
            that reduces time-to-treatment for recurrent events."
 -->
 
-> **A way to** locate patients
-> **for** nurses, caretakers and administrators
-> **that** work at a hospital ward.
+A way for the nurses, caretakers and administrators who work at a neurosurgical hospital ward to plan and organize the daily work, with a focus on patient locations.
 
 ---
 
@@ -83,7 +81,7 @@ However, some preparations aren’t performed at Linda’s ward and they need to
 
 - Hierarchy of patient placement
   - Hospital → Ward → Room → Bed
-  - Bed types
+  - In Sahlgrenska’s neurosurgical ward (avd. 10 and 23), the following types of beds exist:
     - 01–08		Non-intensive surveillance beds
     - 10–11		Intensive / post-op beds
     - IVA		General hospital ICU beds
@@ -92,19 +90,27 @@ However, some preparations aren’t performed at Linda’s ward and they need to
     - Op		Operation-related beds
     - PERM		The patient went home on trial – might return or not
     - UTL		Patients borrowed out to other departments (utlånad= rent out)
-
-- Patients move between several locations: hospital rooms, surgery rooms, X-ray/CT, ICU (central ICU and nero ICU)
+  - Linda highlights that, while a patient is admitted to the ward, the patients move around between the beds and sometimes into other wards, e.g. X-ray/CT, ICU. Which is also seen during the observation of the “rounds” and testing with the nurses. 
   - Generally the patient doesn’t have to leave their bed, and the bed is moved to the new room with the patient in it. But they’re not guaranteed to always stay in the same bed
 
-- Therefore, we have a compromise that narrowed the problem to : Tracking the patients’ real-time physical location. And maybe we can extend it to solve the other problem in the future work, or leave it to someone else.
+- Through interviews with nurses, secretaries and the management team, the problem of keeping track of where patients are within the hospital comes up frequently. However, there are different views of the problem, depending on the role of the person:
+  - **Operative staff (nurses, secretaries)**: quickly knowing where the patient is, planning bed availability, etc.
+  - **Rounds person (Lovisa)**: keeping track of and quickly updating/adding patients on the go during the day, and as part of the rounds.
+  - **Management team (ward manager)**: patient safety is the key concern, in order to quickly know where the patient is in case of emergencies
 
-- In practice, staff use a shared Excel sheet to manually keep track of important information used in their day-to-day work:
+
+- In practice, staff use a shared Excel sheet，on one ty-monitor, to manually keep track of important information used in their day-to-day work:
   - date
   - patients name
   - comment
   - operation date
 
 - Every admitted patient has a bracelet with a QR code with their personal identification number and birth date.
+
+- While testing the prototype, the nurses explained that they have levels of how heavy the nursing is (omvårdstunga) . Currently, this information is only visible in Melior, which makes it difficult to get an overview of how nursing heavy the different patients are and plan accordingly. However, the nurses expressed a strong interest in being able to have this information easily available during planning, to be able to better distribute workload.
+  - Nursing “omvårdnad” 1, 2, 3, where 1 is the lowest and 3 the highest can be named with A, B, C
+  - Medical 10, 20, 30, where 10 is green, 20 is yellow, 30 is red
+  - Can be combined in any way, e.g. 120 (A20), or 330 (C30) 
 
 - Patients can decide if hospital visitors should be allowed to know that they’re there
   - The patient’s personal identification number is always visible in Melior. Unless the patient has a protected identity, their other information (such as name) will also be fully available  
@@ -128,7 +134,9 @@ However, some preparations aren’t performed at Linda’s ward and they need to
 - There is an attempted solution being developed right now, to replace the Excel sheets and other “homemade” solutions at the wards, but from our interviews it seems like this is a “one size fits all” solution, that in reality doesn’t contain all the necessary information for the specific wards’ needs  
 - Currently they have a solution for locating patients at the cardiological ward, with heart monitors  
 - In somehow synchronize the software so the location is the same in all the system  
-
+- Amni is a company that has a similar system but still missing an overview with all the beds and other 
+- Cosmic is a journal software, which focuses on journal, billing, and staffing but not on the bed planning.
+  -  https://www.svt.se/nyheter/granskning/ug/sju-dodsfall-kopplas-till-journalsystemet-cosmic
 ---
 
 ### 1.4 Success Metrics [Recommended]
@@ -222,7 +230,12 @@ Coming soon… to a theater near you
   Keep it directional. You will refine this throughout the course.
 -->
 
-Hospital staff always know where their patients are when they need it, and throughout their visits.
+Daily planning and documentation at the neurosurgical hospital ward is quick, accurate and always up to date. Hospital staff always know where their patients are when they need it, and throughout their visits.
+
+### 3.1 Our solution
+Our solution will help the nurses, caretakers, and administrators with their daily work, to plan, organize, rearrange, and transfer their patients. The solution is aimed to simply get an overview of the patients at the ward and at the same time get enough information about the patient to treat or check in on them. 
+
+On the other hand we want the solution to be a planning tool for the nurse that goes on the rounds, to easier check and plan the patients’ visit without compromising the care. As the planning is a 24-hour work and can change every second it is important that everyone on the staff gets the same information and that it is possible to update it at any time. 
 
 ---
 
@@ -337,4 +350,4 @@ Conducting interviews and evaluating the needs
 | Version | Date       | Summary of Changes                                  |
 |---------|------------|-----------------------------------------------------|
 | 1.0     | 2026-04-16 | Initial draft after first clinical mentor meeting   |
-|         |            |                                                     |
+| 2.0     | 202-05-0   | The second draft after the feedback from the mentor |
