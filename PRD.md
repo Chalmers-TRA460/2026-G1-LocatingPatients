@@ -7,7 +7,7 @@
 | **Version**         | 3.0                                                                                                                                                                 |
 | **Date**            | 2026-06-06                                                                                                                                                          |
 | **Clinical Mentor** | **Linda Wahlström Andersson**, Ward chief, Sahlgrenska                                                                                                              |
-| **Group Members**   | **Alm, Emma**. Industrial design engineering student**Odinger, Gustav**. Software engineering student**Xie, Yanran**. Computer Systems and Cyber security student |
+| **Group Members**   | **Alm, Emma**. Industrial design engineering student. **Odinger, Gustav**. Software engineering student. **Xie, Yanran**. Computer Systems and Cyber security student |
 
 ***Check the final project report for the up-to-date, final information regarding the project.***
 
