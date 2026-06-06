@@ -1,353 +1,208 @@
-# [Locating Patients]
+# **Real-time bed management**
+
 ## Product Requirements Document
 
-> **TRA460: Digital Health Implementation** | Chalmers University of Technology
+| Group               | TRA460\_Group\_1                                                                                                                                                    |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Version**         | 3.0                                                                                                                                                                 |
+| **Date**            | 2026-06-06                                                                                                                                                          |
+| **Clinical Mentor** | **Linda Wahlström Andersson**, Ward chief, Sahlgrenska                                                                                                              |
+| **Group Members**   | **Alm, Emma**. Industrial design engineering student**Odinger, Gustav**. Software engineering student**Xie, Yanran**. Computer Systems and Cyber security student |
 
-> **v1.0 Section Guide:**
-> - **[Required]** — Must be substantive for this submission to pass.
-> - **[Recommended]** — Optional for v1.0, but strengthens your foundation.
-> - **[Expand Later]** — Scaffolding for future iterations. Initial thoughts welcome.
+***Check the final project report for the up-to-date, final information regarding the project.***
 
----
+## 1\. Needs Statement
 
-### Project Details [Required]
+*A way for the nurses, caretakers and administrators who work at a neurosurgical hospital ward to plan the daily work and get an overview of the current status, with a focus on available beds and patient locations.*
 
-| Field               | Value                                      |
-|---------------------|--------------------------------------------|
-| **Group**           | TRA460_Group_1                            |
-| **Version**         | 1.0                                        |
-| **Date**            | 2026-04-14                                |
-| **Clinical Mentor** | Linda Wahlström Andersson, Ward Chief, Sahlgrenska                 |
-| **Group Members**   | Abdi, Fawsi (Medical student); Alm, Emma (Industrial design engineering); Odinger, Gustav (Software engineering); Xie, Yanran (Computer Systems & Cybersecurity)     |
-
----
-
-## 1. Needs Statement [Required]
-
-<!--
-  REQUIRED FOR v1.0
-
-  THE CORE OF YOUR PRD.
-  Use the Stanford Biodesign format below. Be specific:
-  - The verb should describe a function, not a technology.
-  - The population should be narrow enough to be actionable.
-  - The outcome should be measurable or clearly observable.
-
-  Weak:  "A way to use AI for patients that improves healthcare."
-  Strong: "A way to detect early signs of atrial fibrillation
-           in post-stroke patients managed in primary care
-           that reduces time-to-treatment for recurrent events."
--->
-
-A way for the nurses, caretakers and administrators who work at a neurosurgical hospital ward to plan and organize the daily work, with a focus on patient locations.
-
----
-
-### 1.1 Clinical Context & Background [Required]
-
-<!--
-  REQUIRED FOR v1.0
-
-  Set the stage. What is the clinical problem space?
-  - What condition, workflow, or care gap are you addressing?
-  - How significant is this problem? (incidence, prevalence, burden)
-  - Why does it matter — clinically, economically, or humanly?
--->
+### **1.1 Clinical Context & Background**
 
 When a patient is admitted to Linda’s ward, they usually enter through the ward’s waiting room and get prepared for their procedure. This can include X-rays, checking blood pressure, and blood samples. Depending on what kind of procedure the patient is getting different preparations are done. Some of the preparations can be done at the ward, where they are a team of nurses, medical examiners, care takers, and doctors.
 
 However, some preparations aren’t performed at Linda’s ward and they need to send the patient away. Despite that the patient is physically at a different ward, the patient is still located at Linda’s ward digitally and economically. This causes problems when the staff forgets or has a stressful day, then leaves a patient at, or admits it to, a different ward. The patient is physically at one place but digitally they are somewhere else. 
 
----
-### 1.2 Key Clinical Insights [Required]
+### **1.2 Key Clinical Insights**
 
-<!--
-  REQUIRED FOR v1.0
+* There are at least three IT-systems in the hospital  
+  * **Elvis** primarily used for financial and administrative purposes  
+  * **Melior** used for medical journals  
+  * **Orbit** for operating procedures  
+* Hierarchy of patient placement  
+  * Hospital → Ward → Room → Bed  
+  * In Sahlgrenska’s neurosurgical ward (avd. 10 and 23), the following types of beds exist:  
+    * 01–08		Non-intensive surveillance beds  
+    * 10–11		Intensive / post-op beds  
+    * EXTR		Newly admitted, waiting  
+    * Op		Operation-related beds  
+    * \*PERM		The patient went home on trial – might return or not  
+    * \*UTL		Patients borrowed out to other departments (utlånad= rent out)  
+    * \*IVA		General hospital ICU beds  
+    * \*NIV 1–NIV 5	Neuro-specific ICU beds
 
-  THIS IS THE MOST IMPORTANT SECTION FOR v1.0.
-  Synthesize what you learned from your clinical mentor meeting(s).
-  - What did you observe or hear?
-  - What is the current workflow / status quo?
-  - Where are the friction points, inefficiencies, or risks?
-  - What surprised you?
+    \* Not important for their daily procedures 
 
-  Ground this in specifics. Quotes, scenarios, and concrete
-  examples are more valuable than generalizations.
--->
-- There are multiple IT systems in use:
-  - Elvis primarily used for financial and administrative purposes  
-  - Melior used for medical journals  
-  - Orbit for operating procedures  
+  * Linda highlights that, while a patient is admitted to the ward, the patients move around between the beds and sometimes into other wards, e.g. X-ray/CT, ICU. Which is also seen during the observation of the rounds and testing with the nurses.   
+  * Generally the patient doesn’t have to leave their bed, and the bed is moved to the new room with the patient in it. But they’re not guaranteed to always stay in the same bed.   
+* Through interviews with nurses, secretaries and the management team, the problem of keeping track of where patients are within the hospital comes up frequently. However, there are different views of the problem, depending on the role of the person:   
+  * **Operative staff (nurses, secretaries)**: quickly knowing where the patient is, planning bed availability, etc.   
+  * **Rounds person (Lovisa)**: keeping track of and quickly updating/adding patients on the go during the day, and as part of the rounds.   
+  * **Management team (ward manager)**: patient safety is the key concern, in order to quickly know where the patient is in case of emergencies.   
+* In practice, staff use a shared Excel sheet, on one tv-monitor, to manually keep track of important information used in their day-to-day work:  
+  * date  
+  * patients name  
+  * comment  
+  * operation date  
+  * important information  
+* Every admitted patient has a bracelet with a QR code with their personal identification number and birth date   
+* While testing the prototype, the nurses explained that they have levels of how heavy the nursing is (omvårdstunga) . Currently, this information is only visible in Melior, which makes it difficult to get an overview of how nursing heavy the different patients are and plan accordingly. However, the nurses expressed a strong interest in being able to have this information easily available during planning, to be able to better distribute workload.  
+  * Nursing “omvårdnad” 1, 2, 3, where 1 is the lowest and 3 the highest can be named with A, B, C   
+  * Medical 10, 20, 30, where 10 is green, 20 is yellow, 30 is red   
+  * Can be combined in any way, e.g. 120 (A20), or 330 (C30)   
+* Patients can decide if hospital visitors should be allowed to know that they’re there  
+  * The patient’s personal identification number is always visible in Melior. Unless the patient has a protected identity, their other information (such as name) will also be fully available  
+  * The patient always has the possibility to hide their visits from other people, and will then be perceived as someone with a protected identity   
+  * The hospital informally can use a “keyword” to let only some people know that the patient is there, but this is not a formal practice 
 
-- Hierarchy of patient placement
-  - Hospital → Ward → Room → Bed
-  - In Sahlgrenska’s neurosurgical ward (avd. 10 and 23), the following types of beds exist:
-    - 01–08		Non-intensive surveillance beds
-    - 10–11		Intensive / post-op beds
-    - IVA		General hospital ICU beds
-    - NIV1–NIV5	Neuro-specific ICU beds
-    - EXTR		Newly admitted, waiting
-    - Op		Operation-related beds
-    - PERM		The patient went home on trial – might return or not
-    - UTL		Patients borrowed out to other departments (utlånad= rent out)
-  - Linda highlights that, while a patient is admitted to the ward, the patients move around between the beds and sometimes into other wards, e.g. X-ray/CT, ICU. Which is also seen during the observation of the “rounds” and testing with the nurses. 
-  - Generally the patient doesn’t have to leave their bed, and the bed is moved to the new room with the patient in it. But they’re not guaranteed to always stay in the same bed
+### **1.3 Existing Solutions & Gaps**
 
-- Through interviews with nurses, secretaries and the management team, the problem of keeping track of where patients are within the hospital comes up frequently. However, there are different views of the problem, depending on the role of the person:
-  - **Operative staff (nurses, secretaries)**: quickly knowing where the patient is, planning bed availability, etc.
-  - **Rounds person (Lovisa)**: keeping track of and quickly updating/adding patients on the go during the day, and as part of the rounds.
-  - **Management team (ward manager)**: patient safety is the key concern, in order to quickly know where the patient is in case of emergencies
+* Something that could register the patients’ location  
+* There is an attempted solution being developed right now, to replace the Excel sheets and other “homemade” solutions at the wards, but from our interviews it seems like this is a “one size fits all” solution, that in reality doesn’t contain all the necessary information for the specific wards’ needs  
+* Currently they have a solution for locating patients at the cardiological ward, with heart monitors   
+* In somehow synchronize the software so the location is the same in all the system  
+* Amni is a company that has a similar system but still missing an overview with all the beds and other features.   
+* Cosmic is a journal software, which focuses on journal, billing, and staffing but not on the bed planning.  
+  * [https://www.svt.se/nyheter/granskning/ug/sju-dodsfall-kopplas-till-journalsystemet-cosmic](https://www.svt.se/nyheter/granskning/ug/sju-dodsfall-kopplas-till-journalsystemet-cosmic)
 
+### **1.4 Success Metrics**
 
-- In practice, staff use a shared Excel sheet，on one ty-monitor, to manually keep track of important information used in their day-to-day work:
-  - date
-  - patients name
-  - comment
-  - operation date
+#### Quickly locating patients
 
-- Every admitted patient has a bracelet with a QR code with their personal identification number and birth date.
+* Average time from needing to find patient to finding patient should be below **30 seconds**  
+* 100% of their patients should be able to be found/walked to within 5 minutes (any suitable time limit), if not in the same building above 90% of the patients should be found below 15 minutes
 
-- While testing the prototype, the nurses explained that they have levels of how heavy the nursing is (omvårdstunga) . Currently, this information is only visible in Melior, which makes it difficult to get an overview of how nursing heavy the different patients are and plan accordingly. However, the nurses expressed a strong interest in being able to have this information easily available during planning, to be able to better distribute workload.
-  - Nursing “omvårdnad” 1, 2, 3, where 1 is the lowest and 3 the highest can be named with A, B, C
-  - Medical 10, 20, 30, where 10 is green, 20 is yellow, 30 is red
-  - Can be combined in any way, e.g. 120 (A20), or 330 (C30) 
+#### Manual documentation time
 
-- Patients can decide if hospital visitors should be allowed to know that they’re there
-  - The patient’s personal identification number is always visible in Melior. Unless the patient has a protected identity, their other information (such as name) will also be fully available  
-  - The patient always has the possibility to hide their visits from other people, and will then be perceived as someone with a protected identity
-  - The hospital informally can use a “keyword” to let only some people know that the patient is there, but this is not a formal practice
+* Time spent on registering the location of patients should be below 10 minutes per hospital staff per day  
+* Reduce the average time employees spend calling to find patients per person per day
 
----
+## 2\. Stakeholders & Users
 
-### 1.3 Existing Solutions & Gaps [Required]
+![][image1]  
+*Figure: Map representing how the personas interact with each other and where they are based.* 
 
-<!--
-  REQUIRED FOR v1.0
+### **2.1 Users**
 
-  What solutions or tools exist today for this problem?
-  - Clinical tools, apps, devices, workflows
-  - Why are they insufficient, inaccessible, or underused?
-  - What gap remains that your project could fill?
--->
+#### 2.1.1	Primary users
 
-- Something that could register the patients’ location 
-- There is an attempted solution being developed right now, to replace the Excel sheets and other “homemade” solutions at the wards, but from our interviews it seems like this is a “one size fits all” solution, that in reality doesn’t contain all the necessary information for the specific wards’ needs  
-- Currently they have a solution for locating patients at the cardiological ward, with heart monitors  
-- In somehow synchronize the software so the location is the same in all the system  
-- Amni is a company that has a similar system but still missing an overview with all the beds and other 
-- Cosmic is a journal software, which focuses on journal, billing, and staffing but not on the bed planning.
-  -  https://www.svt.se/nyheter/granskning/ug/sju-dodsfall-kopplas-till-journalsystemet-cosmic
----
-
-### 1.4 Success Metrics [Recommended]
-
-<!--
-  RECOMMENDED FOR v1.0
-
-  How will you know your solution actually addresses the need?
-  Think about the "that..." clause in your Needs Statement —
-  how would you measure or observe that outcome?
--->
-**Quickly locating patients**
-- Average time from needing to find patient to finding patient should be below 30 seconds  
-- 100% of their patients should be able to be found/walked to within 5 minutes (any suitable time limit), if not in the same building above 90% of the patients should be found below 15 minutes  
-
-**Manual documentation time**
-- Time spent on registering the location of patients should be below 10 minutes per hospital staff per day  
-- Reduce the average time employees spend calling to find patients per person per day  
-
----
-
-
-## 2. Stakeholders & Users
-
-### 2.1 User(s)
-
-![Map representing how the personas interact with each other and where they are based](./Persona.png)
-
-<!--
-   REQUIRED FOR v1.0
-
-  Who will directly use or interact with your solution day-to-day?
-  Be specific: "Cardiac nurses in outpatient clinics" not just "nurses."
--->
-
-#### 2.1.1 Primary users 
 The following roles have access to the IT-system. They are able to check where the patients are and do it frequently during the day.
-- Nurses: Most frequent user, at night and weekend  
-- Secretaries  & coordinators: Most frequent user, during daytime  
-- Doctors: Less common user
 
----
+* **Nurses**		                           Most frequent user, at night and weekend  
+* **Secretaries  & coordinators**     Most frequent user, during daytime  
+* **Doctors**	                           Less common user
 
-#### 2.1.2 Secondary users 
+#### 2.1.2	Secondary users
+
 As secondary users, the users that interact with the system but not in the intended way.
-- Receptionists: Access to a limited view of Elvis
-- IT-staff: Behind the scenes maintenance (barely)
 
----
+* **Receptionists**			Access to a limited view of Elvis  
+* **IT-staff**			Behind the scenes maintenance (barely)
 
-#### 2.1.3 Co-users
+#### 2.1.3	Co-users
+
 Co-users are the users that will be affected by the system but do not have access to it. 
-- Patients
-- Personal visitors
 
-<!--
-  REQUIRED FOR v1.0
+* **Patients**  
+* **Personal visitors**
 
-  Who else is affected by or has influence over this solution?
-  Consider: patients, caregivers, administrators, IT departments,
-  payers/insurers, regulators, clinical champions, etc.
--->
+## 3\. Solution Vision
 
+*Daily planning and documentation at the neurosurgical hospital ward is quick, accurate and always up to date. Hospital staff always know where their patients are when they need it, and throughout their visits.*
 
----
+### **3.1 Our solution**
 
-### 2.2 User Journey — Current State [Recommended]
-
-<!--
-  RECOMMENDED FOR v1.0
-
-  Describe the current care pathway or experience of your primary user.
-  A simple narrative walkthrough is fine, e.g.:
-  "The patient wakes up, measures their..., calls the clinic to..."
--->
-
-Coming soon… to a theater near you
-
----
-
-## 3. Solution Vision [Required]
-
-<!--
-  REQUIRED FOR v1.0
-
-  1-2 paragraphs maximum. This is your "north star," not a feature list.
-  - What is the high-level concept?
-  - How does it directly address the Needs Statement?
-  - What does success look like from the user's perspective?
-
-  Keep it directional. You will refine this throughout the course.
--->
-
-Daily planning and documentation at the neurosurgical hospital ward is quick, accurate and always up to date. Hospital staff always know where their patients are when they need it, and throughout their visits.
-
-### 3.1 Our solution
 Our solution will help the nurses, caretakers, and administrators with their daily work, to plan, organize, rearrange, and transfer their patients. The solution is aimed to simply get an overview of the patients at the ward and at the same time get enough information about the patient to treat or check in on them. 
 
 On the other hand we want the solution to be a planning tool for the nurse that goes on the rounds, to easier check and plan the patients’ visit without compromising the care. As the planning is a 24-hour work and can change every second it is important that everyone on the staff gets the same information and that it is possible to update it at any time. 
 
----
+## 4\. Requirements
 
-## 4. Requirements
+### **4.1 Functional Requirements (MoSCoW)**
 
-### 4.1 Functional Requirements (MoSCoW) [Recommended]
+#### Must Have
 
-<!--
-  RECOMMENDED FOR v1.0
+*Non-negotiable for a functioning MVP*
 
-  Categorize what your MVP needs to DO.
-  Each requirement should be a clear, testable capability.
-  A few items per category is enough for v1.0 — this section
-  will grow significantly in later iterations.
--->
+* Patient’s name (or “XXXX” if they have a protected identity)  
+* Patient’s birth year (e.g. 1984\)  
+* Notes about the patient (allows for unlimited customization)  
+* The assigned room and bed (e.g. 01:2)
 
-**Must Have** — *Non-negotiable for a functioning MVP*
-- Patient’s name (or “XXXX” if they have a protected identity) 
-- Patient’s birth year (e.g. 1984)  
-- Notes about the patient (allows for unlimited customization)  
-- Latest location the patient visit (e.g. X-ray, NIVA, etc.)  
-- The assigned room and bed (e.g. IVA:7)
-- To investigate: importance of “bed placement” vs “patient location”, and how they interact.
+#### Should Have
 
-**Should Have** — *High value, but the MVP could technically function without these*
-- Upcoming scheduled operation(s) date  
-- Critical information (current “OBS” column)  
-- Responsible ward  
+*High value, but the MVP could technically function without these*
 
-**Could Have** — *Nice-to-have if time and resources allow*
-- Personal identification number (can use hash or other confidential method) 
-- “Patient left behind” notifications  
-- “Patient left behind” notifications (e.g. forgot to log them leaving the X-ray)
-- Integration between our system and Melior/Elvis 
-- Cause of admission  
-- Log of recent locations / bed placements  
-- Patient’s physical location (more precise location tracking)
-- To investigate: is precise patient location tracking useful? Check with Linda
+* Upcoming scheduled operation(s) date  
+* Critical information (current “OBS” column)  
+* Integration between our system and Melior/Elvis
 
-**Won't Have** — *Explicitly out of scope for this project*
-- Unnecessary information
-  - What is unnecessary information?
-- Logging medical care or confidential information  
-- Shared information with the reception, other wards or outside of the hospital 
+#### Could Have
 
-### 4.2 Non-Functional Requirements & Constraints [Recommended]
+*Nice-to-have if time and resources allow*
 
-<!--
-  RECOMMENDED FOR v1.0
+* Personal identification number  
+* “Patient left behind” notifications (e.g. forgot to log them leaving the X-ray)  
+* Cause of admission  
+* Log of recent locations / bed placements  
+* Patient’s physical location (more precise location tracking)  
+* Latest location the patient visited (e.g. X-ray, NIVA, etc.)  
+* Responsible ward
 
-  Consider the "invisible" requirements:
-  - Data privacy & security (GDPR, patient data handling)
-  - Regulatory considerations (MDR, wellness vs. medical device)
-  - Accessibility (WCAG, language/localization)
-  - Interoperability standards (FHIR, HL7, openEHR)
-  - Performance, offline capability
--->
+#### Won’t Have
+
+*Explicitly out of scope for this project*
+
+* Unnecessary information  
+* Shared information with the reception, other wards or outside of the hospital  
+* Tracking and logging daily tasks (use something like Amni Board instead)
+
+### **4.2 Non-Functional Requirements & Constraints**
 
 It should be quick and simple to:
-- Log or update patient location
-- Retrieve patient location
-- Understand how to use the solution (user-friendly)
-More requirements coming soon…
 
----
+* Log or update patient location  
+* Retrieve patient location  
+* Understand how to use the solution (user-friendly)
 
-## 5. Technical Direction [Expand Later]
+## 5\. Technical Direction
 
-<!--
-  EXPAND IN LATER ITERATIONS
+* **Platform:** Web application  
+* **Key Integrations**  
+  * **Initial pilot**: none  
+  * **Later**: Melior, Elvis, Orbit  
+* **Candidate Tech Stack**  
+  * **Prototype**: Next.js \+ Supabase realtime database  
+  * **Pilot and later**: Vue.js/React \+ Springboot \+ SQLite  
+* **Infrastructure**  
+  * **Prototype**: cloud hosting on Vercel \+ Supabase  
+  * **Pilot and later**: on-prem hosting at Sahlgrenska, running a Docker container
 
-  Initial thoughts only. No commitments required yet.
-  This section helps your future self (and your AI agent, if using
-  Claude Code) understand the technical landscape you are considering.
--->
+In the prototype, the idea is to quickly test the idea and potential solution. To accomplish this, integrations with existing systems and on-prem hosting are not used yet. For the pilot and later iterations of the project, on-prem hosting is required to ensure no data leaves Sahlgrenska.
 
-- **Platform:** [iOS / Android / Web / Cross-platform / TBD]
-- **Key Integrations:** [EHR systems, wearables, sensors, APIs, etc.]
-- **Candidate Tech Stack:** [SpeziVibe, Swift/Kotlin, React, etc. / TBD]
-- **Infrastructure:** [Cloud provider, on-premise, hybrid / TBD]
+## 6\. Open Questions & Risks
 
-Coming soon…
+* **Importance of “bed placement” vs “patient location”, and how they interact.**  
+  Conducting interviews and evaluating the needs  
+* **Is precise patient location tracking useful?**  
+  Conducting interviews and evaluating the needs  
+* **Data privacy and data integrity**  
+  The confidentiality and accessibility of patients' location data
 
----
+## Changelog
 
-## 6. Open Questions & Risks [Required]
+| Version | Date       | Summary of Changes                                |
+| :------ | :--------- | :------------------------------------------------ |
+| 1.0     | 2026-04-16 | Initial draft after first clinical mentor meeting |
+| 2.0     | 2026-05-06 | Update PRD based on feedback from mentor          |
+| 3.0     | 2026-06-06 | For the final submission                          |
 
-<!--
-  REQUIRED FOR v1.0
-
-  Be honest about what you don't know yet. This is a sign of
-  rigorous thinking, not weakness.
-  - What assumptions are you making that haven't been validated?
-  - What could block or derail this project?
-  - What do you need to ask your clinical mentor next?
--->
-
-- **Importance of “bed placement” vs “patient location”, and how they interact.**
-Conducting interviews and evaluating the needs  
-- **Need for precise real-time tracking:**  
-  Plan: Validate with mentor and users  
-
-- **Is precise patient location tracking useful?**  
-Conducting interviews and evaluating the needs 
-
-- **Data privacy and data integrity** (The confidentiality and accessibility of patients' location data) 
-
----
-
-## Changelog [Required]
-
-| Version | Date       | Summary of Changes                                  |
-|---------|------------|-----------------------------------------------------|
-| 1.0     | 2026-04-16 | Initial draft after first clinical mentor meeting   |
-| 2.0     | 202-05-0   | The second draft after the feedback from the mentor |
+[image1]: <data:image/png;base64,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>
